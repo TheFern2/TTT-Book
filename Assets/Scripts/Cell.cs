@@ -8,9 +8,12 @@ public class Cell : MonoBehaviour {
     private static int cellIndex;
 
     // References for textures
-    public Sprite square_Empty;
-    public Sprite square_O;
-    public Sprite square_X;
+    public Sprite squareEmpty;
+    public Sprite squareO;
+    public Sprite squareX;
+
+    // Testing variables: Delete later on!
+    public int currentPlayer = 1;
 
 	// Use this for initialization
 	void Start () {
@@ -21,4 +24,27 @@ public class Cell : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    void OnMouseDown()
+    {
+        cellIndex = int.Parse(this.transform.tag);
+        Debug.Log("You have clicked tile " + cellIndex);
+
+        // Change texture on mouse down
+        ChangeTexture(currentPlayer);
+    }
+
+    // This function will change the texture based on the player
+    void ChangeTexture(int player)
+    {
+        if (player == 1)
+        {
+            GetComponent<SpriteRenderer>().sprite = squareX;
+        }
+
+        if (player == 2)
+        {
+            GetComponent<SpriteRenderer>().sprite = squareO;
+        }
+    }
 }
