@@ -30,8 +30,15 @@ public class Cell : MonoBehaviour {
         cellIndex = int.Parse(this.transform.tag);
         Debug.Log("You have clicked tile " + cellIndex);
 
-        // Change texture on mouse down
-        ChangeTexture(currentPlayer);
+        // Sanity checks:
+        // 1. Ensure cell is empty i.e. is equal to zero
+        // 2. Check if GameState is Win
+        if(GameManager.board[cellIndex] == 0 &&
+           GameManager.GameState != GameManager.GameStates.WIN)
+        {
+            ChangeTexture(GameManager.currentPlayer);
+            GameManager.board[cellIndex] = GameManager.currentPlayer;
+        }
     }
 
     // This function will change the texture based on the player
@@ -46,5 +53,11 @@ public class Cell : MonoBehaviour {
         {
             GetComponent<SpriteRenderer>().sprite = squareO;
         }
+    }
+
+    public void EmptyBoard()
+    {
+        GetComponent<SpriteRenderer>().sprite = squareEmpty;
+
     }
 }
